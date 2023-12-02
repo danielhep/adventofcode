@@ -6,11 +6,11 @@ fn main() {
     let lines = contents.split("\n");
     let mut sum = 0;
 
-    let first_digit_re = Regex::new(r"^.*?(\d|(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine))");
-    let last_digit_re = Regex::new(r".*(\d|(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine)).*$");
+    let first_digit_re = Regex::new(r"^.*?(\d|(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine))").unwrap();
+    let last_digit_re = Regex::new(r".*(\d|(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine)).*$").unwrap();
     for line in lines.into_iter() {
-        let mut digit1: Option<u32> = Option::None;
-        let mut digit2: Option<u32> = Option::None;
+        let mut digit1 = first_digit_re.captures(line).unwrap().get(1).unwrap().as_str();
+        let mut digit2 = last_digit_re.captures(line).unwrap().get(1).unwrap().as_str();
         for character in line.chars() {
             // Look for a digit
             if character.is_digit(10) {
